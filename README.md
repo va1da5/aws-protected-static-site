@@ -7,7 +7,6 @@ The static site is located in [public](public/) directory. Currently it contains
 
 The [Lambda@Edge](https://aws.amazon.com/lambda/edge/) does not allow usage of environment variables, however, this functionality could be still achieved by using [python-dotenv](https://github.com/theskumar/python-dotenv) and [.env](aws_lambda/.env) file. Additionally, this provides a good example of how to bundle the Lambda function with third party dependencies.
 
-Terraform state is being written to a S3 bucket. The bucket needs to exist prior to running the Terraform deployment.
 
 ## Requirements:
 
