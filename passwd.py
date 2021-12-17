@@ -2,7 +2,7 @@
 
 from getpass import getpass
 
-from aws_lambda.passwd import CredentialsStore
+from aws_lambda.credentials_store import CredentialsStore
 
 
 def main():

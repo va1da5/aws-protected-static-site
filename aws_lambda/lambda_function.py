@@ -2,9 +2,8 @@ import base64
 import os
 from typing import Any, Mapping, Tuple
 
+from credentials_store import CredentialsStore
 from dotenv import load_dotenv
-
-from passwd import CredentialsStore
 
 load_dotenv()
 
@@ -29,7 +28,7 @@ def parse_credentials(auth_header: str) -> Tuple[str, str]:
     return user, password
 
 
-def lambda_handler(event: Mapping[str, Any], context) -> Mapping[str, Any]:
+def lambda_handler(event: Mapping[str, Any], context: Any) -> Mapping[str, Any]:
 
     credentials_file = os.getenv("CREDENTIALS_STORE")
 

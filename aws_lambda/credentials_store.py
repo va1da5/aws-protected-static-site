@@ -1,18 +1,20 @@
 import hashlib
 import os
+from typing import Mapping
 
 
 class CredentialsStore:
-    credentials = {}
-    iterations = 100000
-    credentials_file = ".passwd"
+    credentials: Mapping[str, str]
+    credentials_file: str
+    iterations: int
 
-    def __init__(self, credentials_file=".passwd", iterations=100000):
+    def __init__(self, credentials_file: str = ".passwd", iterations: int = 100000):
+        self.credentials = {}
         self.credentials_file = credentials_file
         self.iterations = iterations
         self.load()
 
-    def hash_password(self, password: str, custom_salt=None) -> str:
+    def hash_password(self, password: str, custom_salt: bytes = None) -> str:
         """
         Hash the password and return the hashed password.
         """
@@ -28,11 +30,11 @@ class CredentialsStore:
         """
         Validate the password against the hashed password.
         """
-        salt, hashed_key = hashed_password.split("$")
+        salt, *_ = hashed_password.split("$")
         current_password = self.hash_password(password, custom_salt=bytes.fromhex(salt))
         return current_password == hashed_password
 
-    def add(self, username, password):
+    def add(self, username: str, password: str):
         hashed_password = self.hash_password(password)
         self.credentials[username.lower()] = hashed_password
 
@@ -53,7 +55,7 @@ class CredentialsStore:
             self.save()
             self.load()
 
-    def validate(self, username, password):
+    def validate(self, username: str, password: str) -> bool:
         username = username.lower()
         if username not in self.credentials:
             return False
